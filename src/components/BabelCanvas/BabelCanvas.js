@@ -1,7 +1,10 @@
 import React from 'react';
 import UploadImageForm from './UploadImageForm';
-import Annotator from './Annotator';
+import ImageAnnotator from './ImageAnnotator';
 import useGetAnno from '../../functions/useGetAnno';
+import AnnoState from './AnnoState';
+import TextAnnotator from './TextAnnotator';
+import './anno.css';
 
 const BabelCanvas = () => {
 
@@ -16,7 +19,11 @@ const BabelCanvas = () => {
             </div>
             :
             <div className='babel-main'>
-                <Annotator />
+                <AnnoState />
+                <div className='babel-anno'>
+                    <ImageAnnotator />
+                    <TextAnnotator />
+                </div>
             </div>   
             }
         </div>

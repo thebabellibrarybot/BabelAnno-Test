@@ -23,7 +23,7 @@ export const ThemeProvider = ({children}) => {
           ...versionArray,
           [newVersion]: newImgArray.reduce((acc, obj) => ({
             ...acc,
-            [obj.filename]: { fileObj: obj, annotations: [] },
+            [obj.filename]: { fileObj: obj, annotations: [], textAnnotations: [] },
           }), {}),
         };
       

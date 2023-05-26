@@ -1,0 +1,9 @@
+.babel-main {
+    display: inline;
+}
+.babel-anno {
+    display: flex;
+    align-items: space-evenly;
+    border: 1px solid black;
+    width: 100%;
+}
