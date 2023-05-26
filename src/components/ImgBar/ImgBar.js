@@ -3,23 +3,26 @@ import styles from './ImgBar.module.css';
 
 const ImgBar = () => {
 
-    const { imgArray } = useGetAnno();
+    const { versionArray, curVersion, curImg, setCurImg } = useGetAnno();
+
 
     return (
         <>
-            { imgArray.length > 0 ? 
-            <div className={styles.ImgBarContainer}>
-                {imgArray.map((image, index) => (
-                    <div key={index} className={styles.ImgBarItem}>
-                        <h3>{image.filename}</h3>
-                        <p>Upload Date: {image.uploadDate}</p>
-                        <p>Size: {image.size} bytes</p>
-                        <img src={image.image} alt={image.filename} />
-                    </div>
-                ))}
-            </div>
-            :
-            null}
+            {Object.keys(versionArray).length === 0 ?
+                <p>no cur img</p>
+                :
+                <div className={styles.ImgBarContainer}>
+                    {Object.entries(versionArray[curVersion]).map(([key, value]) => {
+                        return (
+                            <div key={key} className={value === curImg ? styles.ImgBarItemClicked : styles.ImgBarItem} onClick={() => setCurImg(versionArray[curVersion][key])}>
+                                <p>{key}</p>
+                                <img src={value.fileObj.image} alt={value.fileObj.filename} />
+                                <p>{value.fileObj.uploadDate}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+            }            
         </>
     )
 };

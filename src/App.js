@@ -3,7 +3,7 @@ import './App.css';
 import './App.css';
 
 // comps to exports
-import BabelMain from './components/BabelMain';
+import BabelCanvas from './components/BabelCanvas/BabelCanvas';
 import { ThemeProvider } from './provider/annoProvider';
 import ImgBar from './components/ImgBar/ImgBar';
 import ToolBar from './components/ToolBar/ToolBar';
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <ThemeProvider>
         <h1>BabelCanvas</h1>
-        < BabelMain />
+        < BabelCanvas />
         <br />
 
         <h1>ImgBar</h1>

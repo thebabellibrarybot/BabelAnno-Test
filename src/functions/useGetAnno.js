@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AnnoContext } from '../provider/annoProvider';
 
 const useGetAnno = () => {
-    const { imgArray, setImgArray, styles, setStyles } = useContext(AnnoContext);
-    return { imgArray, setImgArray, styles, setStyles };
+    const { versionArray, setVersionArrayFunc, styles, setStyles, curImg, setCurImg, curVersion, setCurVersion } = useContext(AnnoContext);
+    return { versionArray, setVersionArrayFunc, styles, setStyles, curImg, setCurImg, curVersion, setCurVersion };
 }
 export default useGetAnno;

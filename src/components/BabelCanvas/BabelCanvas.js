@@ -1,16 +1,16 @@
 import React from 'react';
 import UploadImageForm from './UploadImageForm';
 import Annotator from './Annotator';
-import useGetAnno from '../functions/useGetAnno';
+import useGetAnno from '../../functions/useGetAnno';
 
 const BabelCanvas = () => {
 
-    const {imgArray} = useGetAnno();
+    const {versionArray} = useGetAnno();
     
     return (
         <div>
             {
-             imgArray.length < 1 ? 
+             Object.keys(versionArray).length === 0 ? 
              <div className='babel-start'>
                 <UploadImageForm />
             </div>
