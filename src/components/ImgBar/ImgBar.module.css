@@ -1,0 +1,11 @@
+.ImgBarContainer {
+    border: 1px solid #ccc;
+    max-width: 10%;
+}
+.ImgBarItem {
+    border: 1px solid red;
+}
+.ImgBarItem img {
+    max-width: 100%;
+    height: auto;
+}
