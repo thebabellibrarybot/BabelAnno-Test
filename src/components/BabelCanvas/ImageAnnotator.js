@@ -91,6 +91,7 @@ const ImageAnnotator = () => {
     console.log("Box Dimensions:", points);
     const updatedPoints = { id: annos.length, ...points };
     setAnnos((prevAnnos) => (prevAnnos.length === 0 ? [updatedPoints] : [...prevAnnos, updatedPoints]));
+    updateAnnotations(curImg.version, curImg.fileObj.filename, annos); // Update annotations after adding a new one
     console.log("Annotations:", annos, annos.length);
   };
 
@@ -103,7 +104,11 @@ const ImageAnnotator = () => {
   };
 
   const handleDeleteAnno = (index) => {
-    setAnnos((prevAnnos) => prevAnnos.filter((_, i) => i !== index));
+    setAnnos((prevAnnos) => {
+      const updatedAnnos = prevAnnos.filter((_, i) => i !== index);
+      updateAnnotations(curImg.version, curImg.fileObj.filename, updatedAnnos); // Update annotations after removing one
+      return updatedAnnos;
+    });
   };
 
   return (
