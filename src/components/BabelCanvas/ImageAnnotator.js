@@ -2,7 +2,7 @@ import useGetAnno from "../../functions/useGetAnno";
 import { useState, useRef, useEffect } from "react";
 
 const ImageAnnotator = () => {
-  const { curImg, setVersionArrayFunc } = useGetAnno();
+  const { curImg, updateAnnotations } = useGetAnno();
   const [boxes, setBoxes] = useState([]);
   const [drawing, setDrawing] = useState(false);
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
