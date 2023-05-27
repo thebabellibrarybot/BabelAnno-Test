@@ -7,54 +7,14 @@ const ImageAnnotator = () => {
   const [boxes, setBoxes] = useState([]);
   const [drawing, setDrawing] = useState(false);
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
-  const [annos, setAnnos] = useState(curImg.annotations.length > 1 ? curImg.annotations : []);
-
   const containerRef = useRef(null);
 
-  console.log(curImg, 'curImg.annotations');
-
+  // Clears all to default if image changes
   useEffect(() => {
-    const handleResize = () => {
-      // Update the box positions and annotation coordinates when the container div is resized
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const scaleX = containerRect.width / curImg.fileObj.width;
-      const scaleY = containerRect.height / curImg.fileObj.height;
-
-      setBoxes((prevBoxes) =>
-        prevBoxes.map((box) => ({
-          ...box,
-          x: box.x * scaleX,
-          y: box.y * scaleY,
-          width: box.width * scaleX,
-          height: box.height * scaleY,
-        }))
-      );
-
-      setAnnos((prevAnnos) =>
-        prevAnnos.map((anno) => ({
-          ...anno,
-          x: anno.x * scaleX,
-          y: anno.y * scaleY,
-          width: anno.width * scaleX,
-          height: anno.height * scaleY,
-        }))
-      );
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [curImg]);
-
-  // clears all to default if image changes?
-  useEffect(() => {
-    setAnnos(curImg.annotations.length > 1 ? curImg.annotations : []);
     setDrawing(false);
     setBoxes([]);
   }, [curImg]);
-
+  // starts the annotation when the mouse is double clicked
   const handleDoubleClick = (event) => {
     const { clientX, clientY } = event;
     const containerRect = containerRef.current.getBoundingClientRect();
@@ -64,7 +24,7 @@ const ImageAnnotator = () => {
     setStartPosition({ x, y });
     setDrawing(true);
   };
-
+  // draws the annotation when the mouse moves
   const handleMouseMove = (event) => {
     if (drawing) {
       const { clientX, clientY } = event;
@@ -89,16 +49,13 @@ const ImageAnnotator = () => {
       ]);
     }
   };
-
+  // adds the annotation when the mouse is released
   const handleMouseUp = () => {
     if (drawing) {
       setDrawing(false);
-      console.log('up')
     }
   };
-
-  // ...
-  
+  // adds the annotation when the box is clicked
   const handleBoxClick = (id, points) => {
     const updatedPoints = {
       simpleId: 0, // Placeholder for simple numerical id
@@ -108,58 +65,48 @@ const ImageAnnotator = () => {
       width: points.width,
       height: points.height,
     };
-  
-    const isDuplicate = annos.some(
+
+    const isDuplicate = curImg.annotations.some(
       (anno) =>
         anno.x === updatedPoints.x &&
         anno.y === updatedPoints.y &&
         anno.width === updatedPoints.width &&
         anno.height === updatedPoints.height
     );
-  
-    if (!isDuplicate) {
-      setAnnos((prevAnnos) => {
-        const updatedAnnos = [...prevAnnos, updatedPoints];
-  
-        // Sort the annotations based on the y-axis coordinates from top to bottom
-        updatedAnnos.sort((anno1, anno2) => anno1.y - anno2.y);
-  
-        // Update the simple numerical id values to ensure there are no skipped numbers
-        let nextSimpleId = 1;
-        const updatedAnnosWithIds = updatedAnnos.map((anno) => {
-          const updatedAnno = { ...anno, simpleId: nextSimpleId };
-          nextSimpleId++;
-          return updatedAnno;
-        });
-  
-        updateAnnotations(
-          curVersion,
-          curImg.fileObj.filename,
-          updatedAnnosWithIds
-        );
-        return updatedAnnosWithIds;
-      });
-    }
-  };
-  
-  
-  const handleDeleteAnno = (index) => {
-    setAnnos((prevAnnos) => {
-      const updatedAnnos = prevAnnos.filter((_, i) => i !== index);
 
-      // Update the id values to ensure there are no skipped numbers
-      let nextId = 1;
-      const updatedAnnosWithIds = updatedAnnos.map((anno) => {
-        const updatedAnno = { ...anno, id: nextId };
-        nextId++;
+    if (!isDuplicate) {
+      const updatedAnnosWithoutIds = [...curImg.annotations, updatedPoints];
+      const sortedAnnos = updatedAnnosWithoutIds.sort((anno1, anno2) => anno1.y - anno2.y);
+
+      let nextSimpleId = 1;
+      const updatedAnnosWithIds = sortedAnnos.map((anno) => {
+        const updatedAnno = { ...anno, simpleId: nextSimpleId };
+        nextSimpleId++;
         return updatedAnno;
       });
 
-      updateAnnotations(curVersion, curImg.fileObj.filename, updatedAnnosWithIds); // Update annotations after removing one
-      return updatedAnnosWithIds;
-    });
+      updateAnnotations(
+        curVersion,
+        curImg.fileObj.filename,
+        updatedAnnosWithIds
+      );
+    }
   };
+  // deletes the annotation when the X is clicked
+  const handleDeleteAnno = (index) => {
+    const updatedAnnosWithoutIds = curImg.annotations.filter((_, i) => i !== index);
 
+    // Update the id values to ensure there are no skipped numbers
+    let nextId = 1;
+    const updatedAnnosWithIds = updatedAnnosWithoutIds.map((anno) => {
+      const updatedAnno = { ...anno, id: nextId };
+      nextId++;
+      return updatedAnno;
+    });
+
+    updateAnnotations(curVersion, curImg.fileObj.filename, updatedAnnosWithIds);
+  };
+  // cancels the box when right clicked
   const handleCancelBox = (event) => {
     event.preventDefault();
     if (drawing) {
@@ -205,7 +152,7 @@ const ImageAnnotator = () => {
               onClick={() => handleBoxClick(index, box)}
             />
           ))}
-          {annos.map((anno, index) => (
+          {curImg.annotations.map((anno, index) => (
             <div
               key={index}
               style={{
