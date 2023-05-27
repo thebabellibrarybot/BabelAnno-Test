@@ -3,9 +3,15 @@ import { useState, useEffect } from "react";
 
 const TextAnnotator = () => {
   const { curImg, curVersion, updateTextAnnotations } = useGetAnno();
-  const [textAnnotations, setTextAnnotations] = useState(
-    curImg.textAnnotations.length > 0 ? curImg.textAnnotations : []
-  );
+  const [textAnnotations, setTextAnnotations] = useState(() => {
+    if (curImg.textAnnotations.length > 0) {
+      return curImg.textAnnotations;
+    } else {
+      return curImg.annotations.map((anno) => ({
+        [anno.randomId]: "",
+      }));
+    }
+  });
 
   const handleTextChange = (index, event) => {
     const updatedTextAnnotations = [...textAnnotations];
@@ -41,5 +47,3 @@ const TextAnnotator = () => {
 };
 
 export default TextAnnotator;
-
-

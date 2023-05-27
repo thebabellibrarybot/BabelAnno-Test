@@ -9,6 +9,7 @@ export const ThemeProvider = ({ children }) => {
   const [curImg, setCurImg] = useState(null);
   const [curVersion, setCurVersion] = useState(null);
 
+  // updates the bbox annotations in the current image in the current version
   const updateAnnotations = (version, filename, annotations) => {
     setVersionArray((prevVersionArray) => {
       const updatedVersionArray = { ...prevVersionArray };
@@ -22,6 +23,7 @@ export const ThemeProvider = ({ children }) => {
     });
   };
 
+  // updates the text annotations for the current image in the current version
   const updateTextAnnotations = (version, filename, textAnnotations) => {
     setVersionArray((prevVersionArray) => {
       const updatedVersionArray = { ...prevVersionArray };
@@ -31,10 +33,12 @@ export const ThemeProvider = ({ children }) => {
           updatedVersionArray[version][filename].textAnnotations = textAnnotations;
         }
       }
+      console.log(updatedVersionArray, 'updatedVersionArray')
       return updatedVersionArray;
     });
   };
 
+  // sets the version array: { version: { filename: { fileObj, annotations, textAnnotations } } }
   const setVersionArrayFunc = (newImgArray) => {
     let lastVersion = 0;
     if (Object.keys(versionArray).length > 0) {
@@ -58,6 +62,24 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
+  // makes a new version which is a copy of the curVersion
+  const addNewVersion = () => {
+    setVersionArray((prevVersionArray) => {
+      const newVersionNumber = Object.keys(prevVersionArray).reduce(
+        (max, version) => Math.max(max, parseFloat(version)),
+        0
+      ) + 1;
+  
+      const newVersion = {
+        ...prevVersionArray,
+        [newVersionNumber]: { ...prevVersionArray[curVersion] },
+      };
+      setCurVersion(newVersionNumber);
+      return newVersion;
+    });
+  };
+  
+
   const contextValues = {
     versionArray,
     setVersionArrayFunc,
@@ -69,6 +91,7 @@ export const ThemeProvider = ({ children }) => {
     setCurVersion,
     updateAnnotations,
     updateTextAnnotations,
+    addNewVersion,
   };
 
   return (

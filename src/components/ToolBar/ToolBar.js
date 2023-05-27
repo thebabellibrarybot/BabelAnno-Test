@@ -1,8 +1,10 @@
 import Expander from "./expander";
 import { useState } from "react";
 import { showPopup } from "../../buttons/save/save";
+import useGetAnno from "../../functions/useGetAnno";
 
 const ToolBar = () => {
+    const { addNewVersion } = useGetAnno();
     const [expanded, setExpanded] = useState(false);
     function handleClick(e) {
         if (expanded === e) {
@@ -16,7 +18,7 @@ const ToolBar = () => {
             <ul>
                 <li>
                     <p onClick={() => handleClick("File")}>File</p>
-                    <Expander expanded={expanded === "File" ? true : false} array={[{item: "New", handleItem: "handle"}, {item: "New Version", handleItem: "handle"}, {item: "Save", handleItem: showPopup}, {item: "Export", handleItem: "handle"}, {item: "Delete", handleItem: "handle"}, ]}/>
+                    <Expander expanded={expanded === "File" ? true : false} array={[{item: "New", handleItem: "handle"}, {item: "New Version", handleItem: addNewVersion}, {item: "Save", handleItem: showPopup}, {item: "Export", handleItem: "handle"}, {item: "Delete", handleItem: "handle"}, ]}/>
                 </li>
                 <li>
                     <p onClick={() => handleClick("View")}>View</p>
