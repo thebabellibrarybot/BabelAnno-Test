@@ -12,6 +12,7 @@ const ImgBar = () => {
                 <p>no cur img</p>
                 :
                 <div className={styles.ImgBarContainer}>
+                    <p>Current Image: {curImg.fileObj.filename}</p>
                     {Object.entries(versionArray[curVersion]).map(([key, value]) => {
                         return (
                             <div key={key} className={value === curImg ? styles.ImgBarItemClicked : styles.ImgBarItem} onClick={() => setCurImg(versionArray[curVersion][key])}>

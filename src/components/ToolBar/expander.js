@@ -1,14 +1,13 @@
-const Expander = ({ expanded, array, title }) => {
+const Expander = ({ expanded, array, handleItem }) => {
     return (
         <div className="expander">
             {expanded === false ? 
-                <h1>{title}</h1> 
+                null
                 : 
                 <>
-                    <h1>{title}</h1>
                     <ul>
                         {array.map((item, i) => (
-                            <li key={i}>{item}</li>
+                            <li key={i} onClick = {()=>item.handleItem()}>{item.item}</li>
                         ))}
                     </ul>
                 </>

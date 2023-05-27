@@ -1,14 +1,17 @@
 import useGetAnno from "../../functions/useGetAnno";
 import { useState, useRef, useEffect } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const ImageAnnotator = () => {
-  const { curImg, updateAnnotations } = useGetAnno();
+  const { curImg, curVersion, updateAnnotations } = useGetAnno();
   const [boxes, setBoxes] = useState([]);
   const [drawing, setDrawing] = useState(false);
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [annos, setAnnos] = useState(curImg.annotations.length > 1 ? curImg.annotations : []);
 
   const containerRef = useRef(null);
+
+  console.log(curImg, 'curImg.annotations');
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,6 +46,13 @@ const ImageAnnotator = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, [curImg]);
+
+  // clears all to default if image changes?
+  useEffect(() => {
+    setAnnos(curImg.annotations.length > 1 ? curImg.annotations : []);
+    setDrawing(false);
+    setBoxes([]);
   }, [curImg]);
 
   const handleDoubleClick = (event) => {
@@ -83,16 +93,71 @@ const ImageAnnotator = () => {
   const handleMouseUp = () => {
     if (drawing) {
       setDrawing(false);
+      console.log('up')
     }
   };
 
+  // ...
+  
   const handleBoxClick = (id, points) => {
-    console.log("Box ID:", id);
-    console.log("Box Dimensions:", points);
-    const updatedPoints = { id: annos.length, ...points };
-    setAnnos((prevAnnos) => (prevAnnos.length === 0 ? [updatedPoints] : [...prevAnnos, updatedPoints]));
-    updateAnnotations(curImg.version, curImg.fileObj.filename, annos); // Update annotations after adding a new one
-    console.log("Annotations:", annos, annos.length);
+    const updatedPoints = {
+      simpleId: 0, // Placeholder for simple numerical id
+      randomId: uuidv4(), // Generate a unique random id
+      x: points.x,
+      y: points.y,
+      width: points.width,
+      height: points.height,
+    };
+  
+    const isDuplicate = annos.some(
+      (anno) =>
+        anno.x === updatedPoints.x &&
+        anno.y === updatedPoints.y &&
+        anno.width === updatedPoints.width &&
+        anno.height === updatedPoints.height
+    );
+  
+    if (!isDuplicate) {
+      setAnnos((prevAnnos) => {
+        const updatedAnnos = [...prevAnnos, updatedPoints];
+  
+        // Sort the annotations based on the y-axis coordinates from top to bottom
+        updatedAnnos.sort((anno1, anno2) => anno1.y - anno2.y);
+  
+        // Update the simple numerical id values to ensure there are no skipped numbers
+        let nextSimpleId = 1;
+        const updatedAnnosWithIds = updatedAnnos.map((anno) => {
+          const updatedAnno = { ...anno, simpleId: nextSimpleId };
+          nextSimpleId++;
+          return updatedAnno;
+        });
+  
+        updateAnnotations(
+          curVersion,
+          curImg.fileObj.filename,
+          updatedAnnosWithIds
+        );
+        return updatedAnnosWithIds;
+      });
+    }
+  };
+  
+  
+  const handleDeleteAnno = (index) => {
+    setAnnos((prevAnnos) => {
+      const updatedAnnos = prevAnnos.filter((_, i) => i !== index);
+
+      // Update the id values to ensure there are no skipped numbers
+      let nextId = 1;
+      const updatedAnnosWithIds = updatedAnnos.map((anno) => {
+        const updatedAnno = { ...anno, id: nextId };
+        nextId++;
+        return updatedAnno;
+      });
+
+      updateAnnotations(curVersion, curImg.fileObj.filename, updatedAnnosWithIds); // Update annotations after removing one
+      return updatedAnnosWithIds;
+    });
   };
 
   const handleCancelBox = (event) => {
@@ -101,14 +166,6 @@ const ImageAnnotator = () => {
       setDrawing(false);
       setBoxes((prevBoxes) => prevBoxes.filter((box) => box.id !== "active"));
     }
-  };
-
-  const handleDeleteAnno = (index) => {
-    setAnnos((prevAnnos) => {
-      const updatedAnnos = prevAnnos.filter((_, i) => i !== index);
-      updateAnnotations(curImg.version, curImg.fileObj.filename, updatedAnnos); // Update annotations after removing one
-      return updatedAnnos;
-    });
   };
 
   return (
@@ -158,7 +215,6 @@ const ImageAnnotator = () => {
                 width: anno.width,
                 height: anno.height,
                 border: "2px solid red",
-                zIndex: 1,
               }}
             >
               <span
@@ -172,7 +228,7 @@ const ImageAnnotator = () => {
                   color: "black",
                 }}
               >
-                {index}
+                {anno.simpleId}
               </span>
               <button
                 style={{
