@@ -19,10 +19,6 @@ const ToolBar = () => {
                     <Expander expanded={expanded === "File" ? true : false} array={[{item: "New", handleItem: "handle"}, {item: "New Version", handleItem: "handle"}, {item: "Save", handleItem: showPopup}, {item: "Export", handleItem: "handle"}, {item: "Delete", handleItem: "handle"}, ]}/>
                 </li>
                 <li>
-                    <p onClick={() => handleClick("Edit")}>Edit</p>
-                    <Expander expanded={expanded === "Edit" ? true : false} array = {[{item: "undo", handleItem: "handle"}, {item: "Redo", handleItem: "handle"}, {item: "Copy", handleItem: "copy"}, {item: "Paste", handleItem: "handle"}, {item: "select all", handleItem: "handle"} ]}/>
-                </li>
-                <li>
                     <p onClick={() => handleClick("View")}>View</p>
                     <Expander expanded={expanded === "View" ? true : false} array={[{item: "Text-lines", handleItem: "handle"}, {item:"Notepad", handleItem: "handle"}, {item: "Compare", handleItem: "handle"}, {item: "Fit to Screen", handleItem: "handle"}, {item: "Hide-text", handleItem: "handle"}, {item: "Hide-line-numbers", handleItem: "handle"}]}/>
                 </li>
