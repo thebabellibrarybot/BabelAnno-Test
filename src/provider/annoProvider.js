@@ -11,7 +11,6 @@ export const ThemeProvider = ({ children }) => {
 
   // updates the bbox annotations in the current image in the current version
   const updateAnnotations = (version, filename, annotations) => {
-    console.log(annotations, 'annotationsBox')
       const originalVersionArray = JSON.parse(JSON.stringify(versionArray));
 
       if (originalVersionArray.hasOwnProperty(version)) {
@@ -19,12 +18,14 @@ export const ThemeProvider = ({ children }) => {
           originalVersionArray[version][filename].annotations = annotations
         }
       }
+      console.log(originalVersionArray, 'originalVersionArray')
+      console.log(versionArray, 'versionArray')
+      console.log(originalVersionArray[version][filename], 'originalVersionArray[version][filename]')
       setVersionArray(originalVersionArray);
       setCurImg(originalVersionArray[version][filename])
   };
   // updates the text annotations for the current image in the current version
   const updateTextAnnotations = (version, filename, textAnnotations) => {
-    console.log(textAnnotations, 'textAnnotations')
     const originalVersionArray = JSON.parse(JSON.stringify(versionArray));
 
     if (originalVersionArray.hasOwnProperty(version)) {
@@ -32,7 +33,6 @@ export const ThemeProvider = ({ children }) => {
         originalVersionArray[version][filename].textAnnotations = textAnnotations
       }
     }
-    console.log(originalVersionArray, 'originalVersionArray')
     setVersionArray(originalVersionArray);
     setCurImg(originalVersionArray[version][filename])
   };

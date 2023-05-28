@@ -9,6 +9,8 @@ const ImageAnnotator = () => {
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
 
+  console.log(curImg, 'curImg')
+
   // Clears all to default if image changes
   useEffect(() => {
     setDrawing(false);
@@ -84,8 +86,6 @@ const ImageAnnotator = () => {
         nextSimpleId++;
         return updatedAnno;
       });
-      console.log(updatedAnnosWithIds, 'updatedAnnosWithIds');
-      console.log(curImg, 'curImg')
       updateAnnotations(
         curVersion,
         curImg.fileObj.filename,

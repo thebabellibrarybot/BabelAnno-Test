@@ -2,7 +2,13 @@ import useGetAnno from "../../functions/useGetAnno";
 
 const VersionManager = () => {
 
-    const { versionArray, curVersion, setCurVersion } = useGetAnno();
+    const { versionArray, curVersion, setCurVersion, setCurImg } = useGetAnno();
+
+    const handleNewVersion = (key) => {
+        console.log('fired handleNewVersion')
+        setCurVersion(key);
+        setCurImg(versionArray[key][Object.keys(versionArray[key])[0]]);
+    };
 
     return (
         <>
@@ -15,7 +21,7 @@ const VersionManager = () => {
                             return (
                                 <div key={key} className={curVersion === key ? 'clicked' : 'version-item'}>
                                     <p>{curVersion}</p>
-                                    <button onClick={() => setCurVersion(key)}>{key}</button>
+                                    <button onClick={() => handleNewVersion(key)}>{key}</button>
                                 </div>
                             )
                         }

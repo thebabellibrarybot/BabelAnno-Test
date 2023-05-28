@@ -1,11 +1,14 @@
+import React from "react";
 import useGetAnno from "../../functions/useGetAnno";
 
 const TextAnnotator = () => {
   const { curImg, curVersion, updateTextAnnotations } = useGetAnno();
 
-  const handleTextChange = (simpleId,randomId, event) => {
-    const annoLine = { simpleId: simpleId, randomId: randomId, text: event.target.value};
-    updateTextAnnotations(curVersion, curImg.fileObj.filename, annoLine);
+  const handleTextChange = (index, event) => {
+    const updatedTextAnnotations = [...curImg.textAnnotations];
+    updatedTextAnnotations[index] = event.target.value;
+
+    updateTextAnnotations(curVersion, curImg.fileObj.filename, updatedTextAnnotations);
   };
 
   return (
@@ -14,21 +17,16 @@ const TextAnnotator = () => {
       {!curImg ? null : (
         <div>
           <p>Current Image: {curImg.fileObj.filename}</p>
-          {curImg.annotations.map((anno, index) => {
-            console.log(anno, 'anno')
-            console.log(curImg.textAnnotations[index], 'curImg.textAnnotations')
-            return(
-              <div key={anno.randomId}>
-                <label>Text: {anno.simpleId}</label>
-                <input
-                  type="text"
-                  value={curImg.textAnnotations[index] ? curImg.textAnnotations[index][anno.randomId] : ""}
-                  onChange={(event) => handleTextChange(anno.simpleId, anno.randomId, event)}
-                />
-              </div>
-            )
-          }
-          )}
+          {curImg.annotations.map((anno, index) => (
+            <div key={anno.randomId}>
+              <label>Text: {anno.simpleId}</label>
+              <input
+                type="text"
+                value={curImg.textAnnotations[index] || ""}
+                onChange={(event) => handleTextChange(anno.simpleId, event)}
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>
