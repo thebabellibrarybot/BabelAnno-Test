@@ -11,31 +11,30 @@ export const ThemeProvider = ({ children }) => {
 
   // updates the bbox annotations in the current image in the current version
   const updateAnnotations = (version, filename, annotations) => {
-    setVersionArray((prevVersionArray) => {
-      const updatedVersionArray = { ...prevVersionArray };
+    console.log(annotations, 'annotationsBox')
+      const originalVersionArray = JSON.parse(JSON.stringify(versionArray));
 
-      if (updatedVersionArray.hasOwnProperty(version)) {
-        if (updatedVersionArray[version].hasOwnProperty(filename)) {
-          updatedVersionArray[version][filename].annotations = annotations;
+      if (originalVersionArray.hasOwnProperty(version)) {
+        if (originalVersionArray[version].hasOwnProperty(filename)) {
+          originalVersionArray[version][filename].annotations = annotations
         }
       }
-      return updatedVersionArray;
-    });
+      setVersionArray(originalVersionArray);
+      setCurImg(originalVersionArray[version][filename])
   };
-
   // updates the text annotations for the current image in the current version
   const updateTextAnnotations = (version, filename, textAnnotations) => {
-    setVersionArray((prevVersionArray) => {
-      const updatedVersionArray = { ...prevVersionArray };
+    console.log(textAnnotations, 'textAnnotations')
+    const originalVersionArray = JSON.parse(JSON.stringify(versionArray));
 
-      if (updatedVersionArray.hasOwnProperty(version)) {
-        if (updatedVersionArray[version].hasOwnProperty(filename)) {
-          updatedVersionArray[version][filename].textAnnotations = textAnnotations;
-        }
+    if (originalVersionArray.hasOwnProperty(version)) {
+      if (originalVersionArray[version].hasOwnProperty(filename)) {
+        originalVersionArray[version][filename].textAnnotations = textAnnotations
       }
-      console.log(updatedVersionArray, 'updatedVersionArray')
-      return updatedVersionArray;
-    });
+    }
+    console.log(originalVersionArray, 'originalVersionArray')
+    setVersionArray(originalVersionArray);
+    setCurImg(originalVersionArray[version][filename])
   };
 
   // sets the version array: { version: { filename: { fileObj, annotations, textAnnotations } } }

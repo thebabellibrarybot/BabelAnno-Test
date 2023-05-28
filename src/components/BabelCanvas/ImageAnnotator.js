@@ -9,13 +9,11 @@ const ImageAnnotator = () => {
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
 
-  console.log(curImg, 'curImg')
-
   // Clears all to default if image changes
   useEffect(() => {
     setDrawing(false);
     setBoxes([]);
-  }, [curImg]);
+  }, [curImg]); 
   // starts the annotation when the mouse is double clicked
   const handleDoubleClick = (event) => {
     const { clientX, clientY } = event;
@@ -86,7 +84,8 @@ const ImageAnnotator = () => {
         nextSimpleId++;
         return updatedAnno;
       });
-
+      console.log(updatedAnnosWithIds, 'updatedAnnosWithIds');
+      console.log(curImg, 'curImg')
       updateAnnotations(
         curVersion,
         curImg.fileObj.filename,

@@ -1,28 +1,12 @@
 import useGetAnno from "../../functions/useGetAnno";
-import { useState, useEffect } from "react";
 
 const TextAnnotator = () => {
   const { curImg, curVersion, updateTextAnnotations } = useGetAnno();
-  const [textAnnotations, setTextAnnotations] = useState(() => {
-    if (curImg.textAnnotations.length > 0) {
-      return curImg.textAnnotations;
-    } else {
-      return curImg.annotations.map((anno) => ({
-        [anno.randomId]: "",
-      }));
-    }
-  });
 
-  const handleTextChange = (index, event) => {
-    const updatedTextAnnotations = [...textAnnotations];
-    updatedTextAnnotations[index] = { [curImg.annotations[index].id]: event.target.value };
-    setTextAnnotations(updatedTextAnnotations);
-    updateTextAnnotations(curVersion, curImg.fileObj.filename, updatedTextAnnotations);
+  const handleTextChange = (simpleId,randomId, event) => {
+    const annoLine = { simpleId: simpleId, randomId: randomId, text: event.target.value};
+    updateTextAnnotations(curVersion, curImg.fileObj.filename, annoLine);
   };
-
-  useEffect(() => {
-    setTextAnnotations(curImg.textAnnotations.length > 0 ? curImg.textAnnotations : []);
-  }, [curImg]);
 
   return (
     <div>
@@ -30,16 +14,21 @@ const TextAnnotator = () => {
       {!curImg ? null : (
         <div>
           <p>Current Image: {curImg.fileObj.filename}</p>
-          {curImg.annotations.map((anno, index) => (
-            <div key={anno.randomId}>
-              <label>Text: {anno.simpleId}</label>
-              <input
-                type="text"
-                value={textAnnotations[index] ? textAnnotations[index][anno.randomId] : ""}
-                onChange={(event) => handleTextChange(index, event)}
-              />
-            </div>
-          ))}
+          {curImg.annotations.map((anno, index) => {
+            console.log(anno, 'anno')
+            console.log(curImg.textAnnotations[index], 'curImg.textAnnotations')
+            return(
+              <div key={anno.randomId}>
+                <label>Text: {anno.simpleId}</label>
+                <input
+                  type="text"
+                  value={curImg.textAnnotations[index] ? curImg.textAnnotations[index][anno.randomId] : ""}
+                  onChange={(event) => handleTextChange(anno.simpleId, anno.randomId, event)}
+                />
+              </div>
+            )
+          }
+          )}
         </div>
       )}
     </div>

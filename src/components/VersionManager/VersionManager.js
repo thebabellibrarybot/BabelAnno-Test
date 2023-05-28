@@ -4,8 +4,6 @@ const VersionManager = () => {
 
     const { versionArray, curVersion, setCurVersion } = useGetAnno();
 
-    console.log(versionArray, 'versionarray')
-
     return (
         <>
         {Object.keys(versionArray).length === 0 ?
