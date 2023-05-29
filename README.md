@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Historic Document Annotation App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Historic Document Annotation App is a web application designed for annotating historic documents, specifically for the purpose of data annotation using a thoughtful paleography approach. The app provides a user-friendly interface to annotate documents and supports versioning to facilitate the annotation process. The annotated data can be used for training machine learning models, particularly in the field of Optical Character Recognition (OCR) using a Long Short-Term Memory (LSTM) neural network.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Document Annotation**: The app allows users to annotate historic documents by drawing bounding boxes around specific areas of interest, such as text or significant elements in the document.
 
-### `npm start`
+- **Versioning**: The app supports versioning, enabling users to create and manage multiple versions of annotations for a single document. This feature is particularly useful for tracking the progress of annotations and comparing different annotation iterations.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Text Annotation**: In addition to drawing bounding boxes, the app provides a text annotation feature that allows users to add textual information to specific areas of the document. This text annotation can provide additional context or insights related to the annotated elements.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Upload Image**: Users can upload images of historic documents to the app for annotation. The app supports various image formats commonly used in document digitization.
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run the Historic Document Annotation App locally, follow these steps:
 
-### `npm run build`
+1. Clone the repository to your local machine.
+2. Install the required dependencies using a package manager like npm or yarn.
+3. Ensure that you have the necessary permissions and access to the required resources (e.g., images, annotation data).
+4. Start the app by running the appropriate command (e.g., `npm start` or `yarn start`).
+5. Access the app through a web browser by navigating to the provided URL (usually `http://localhost:3000`).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Upload Document: On the app's home page, click the "Upload Document" button to upload a historic document image for annotation. The supported image formats include JPEG, PNG, and TIFF.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Annotation: Once the document is uploaded, it will be displayed in the annotation interface. Use the mouse to draw bounding boxes around areas of interest in the document. Double-clicking will start the annotation, and moving the mouse will draw the bounding box. Release the mouse button to complete the annotation. Right-clicking will cancel the ongoing annotation.
 
-### `npm run eject`
+3. Text Annotation: Alongside the drawing annotations, the app provides a text annotation feature. Each annotated bounding box can be associated with textual information. Click on a bounding box to select it, and enter the relevant text in the input field that appears. The text annotation can provide additional details or explanations related to the annotated element.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Versioning: The app supports versioning to track the progress and changes in annotations. Users can create new versions of annotations for a document and switch between versions to compare and analyze the differences.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Save Annotations: The app automatically saves the annotations and associated text when changes are made. There is no explicit "Save" button; all modifications are persisted in real-time.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+6. Delete Annotations: To remove an annotation, click the "X" button displayed on the annotated bounding box. This action will delete the annotation from the current version.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-## Learn More
+Contributions to the Historic Document Annotation App are welcome! If you encounter any issues, have suggestions for improvements, or would like to add new features, please submit an issue or pull request on the GitHub repository.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The Historic Document Annotation App is released under the [MIT License](https://opensource.org/licenses/MIT). You are free to use, modify, and distribute the app in accordance with the terms and conditions of the license.
 
-### Code Splitting
+## Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+We would like to acknowledge the support and contributions of the developers and
 
-### Analyzing the Bundle Size
+ contributors who have made this app possible. Their dedication and effort in building and maintaining the app are greatly appreciated.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contact
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For any inquiries or further information, please contact [jtucker0110@gmail.com](jtucker0110@gmail.com).

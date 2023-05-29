@@ -18,9 +18,6 @@ export const ThemeProvider = ({ children }) => {
           originalVersionArray[version][filename].annotations = annotations
         }
       }
-      console.log(originalVersionArray, 'originalVersionArray')
-      console.log(versionArray, 'versionArray')
-      console.log(originalVersionArray[version][filename], 'originalVersionArray[version][filename]')
       setVersionArray(originalVersionArray);
       setCurImg(originalVersionArray[version][filename])
   };
@@ -82,6 +79,7 @@ export const ThemeProvider = ({ children }) => {
   const contextValues = {
     versionArray,
     setVersionArrayFunc,
+    setVersionArray,
     styles,
     setStyles,
     curImg,

@@ -9,8 +9,6 @@ const ImageAnnotator = () => {
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
 
-  console.log(curImg, 'curImg')
-
   // Clears all to default if image changes
   useEffect(() => {
     setDrawing(false);
@@ -104,7 +102,7 @@ const ImageAnnotator = () => {
       nextId++;
       return updatedAnno;
     });
-
+    // should replace this with a dedicated deleteAnnotations function
     updateAnnotations(curVersion, curImg.fileObj.filename, updatedAnnosWithIds);
   };
   // cancels the box when right clicked

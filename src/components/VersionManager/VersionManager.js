@@ -1,4 +1,5 @@
 import useGetAnno from "../../functions/useGetAnno";
+import Style from "./versionManager.module.css";
 
 const VersionManager = () => {
 
@@ -12,22 +13,21 @@ const VersionManager = () => {
 
     return (
         <>
-        {Object.keys(versionArray).length === 0 ?
-                <p>no cur version</p>
-                :
-                <div>
-                    {
-                        Object.keys(versionArray).map((key) => {
-                            return (
-                                <div key={key} className={curVersion === key ? 'clicked' : 'version-item'}>
-                                    <p>{curVersion}</p>
-                                    <button onClick={() => handleNewVersion(key)}>{key}</button>
-                                </div>
+            {Object.keys(versionArray).length === 0 ?
+                    null
+                    :
+                    <div className={Style.versionManager}>
+                        {
+                            Object.keys(versionArray).map((key) => {
+                                return (
+                                    <div key={key} className={curVersion === key ? 'clicked' : 'version-item'}>
+                                        <button onClick={() => handleNewVersion(key)}>{key}</button>
+                                    </div>
+                                )
+                            }
                             )
                         }
-                        )
-                    }
-                </div>
+                    </div>
             }       
         </>
     )

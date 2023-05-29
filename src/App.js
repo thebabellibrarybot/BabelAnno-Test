@@ -8,27 +8,13 @@ import { ThemeProvider } from './provider/annoProvider';
 import ImgBar from './components/ImgBar/ImgBar';
 import ToolBar from './components/ToolBar/ToolBar';
 import VersionManager from './components/VersionManager/VersionManager';
+import BabelBaseAnnotator from './base/base';
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider>
-        <h1>BabelCanvas</h1>
-        < BabelCanvas />
-        <br />
-
-        <h1>ImgBar</h1>
-        <ImgBar />
-        <br />
-
-        <h1>ToolBar</h1>
-        <ToolBar />
-        <br />
-
-        <h1>Version Manager</h1>
-        <VersionManager />
-        <br />
-
+        <BabelBaseAnnotator />
       </ThemeProvider>
     </div>
   );

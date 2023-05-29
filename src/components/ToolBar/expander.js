@@ -1,15 +1,15 @@
+import Style from "./toolBar.module.css";
+
 const Expander = ({ expanded, array, handleItem }) => {
     return (
-        <div className="expander">
+        <div className={Style.toolItem}>
             {expanded === false ? 
                 null
                 : 
                 <>
-                    <ul>
-                        {array.map((item, i) => (
-                            <li key={i} onClick = {()=>item.handleItem()}>{item.item}</li>
-                        ))}
-                    </ul>
+                    {array.map((item, i) => (
+                        <p key={i} onClick = {()=>item.handleItem()}>{item.item}</p>
+                    ))}
                 </>
             }
         </div>

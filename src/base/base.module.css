@@ -1,0 +1,15 @@
+.baseVersionBar {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    align-items: center;
+}
+.baseEditor {
+    display: flex;
+}
+.baseToolBar {
+    width: fit-content;
+}
+.baseBabelCanvas {
+    width: 100%;
+}

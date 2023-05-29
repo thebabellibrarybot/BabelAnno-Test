@@ -1,3 +1,4 @@
+- mk delete annotaions button in global state
 - add functionality to the buttons
 - add resize for the image boxes (maybe use the onLoad function to get the image original h,w and listen for changes in <img/> h ,w to get the scale)
 - add a default sheet with some style args
