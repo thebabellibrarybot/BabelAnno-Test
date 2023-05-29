@@ -123,7 +123,6 @@ const ImageAnnotator = () => {
             position: "relative",
             width: "fit-content",
             height: "fit-content",
-            border: "3px solid black",
             display: "inline-block",
           }}
           onDoubleClick={handleDoubleClick}
@@ -145,7 +144,7 @@ const ImageAnnotator = () => {
                 top: box.y,
                 width: box.width,
                 height: box.height,
-                border: "2px solid lightgreen",
+                border: "1px solid lightgreen",
                 zIndex: 2,
               }}
               onClick={() => handleBoxClick(index, box)}
@@ -160,7 +159,7 @@ const ImageAnnotator = () => {
                 top: anno.y,
                 width: anno.width,
                 height: anno.height,
-                border: "2px solid red",
+                border: "1px solid red",
               }}
             >
               <span
