@@ -1,5 +1,6 @@
 import React from "react";
 import useGetAnno from "../../functions/useGetAnno";
+import Style from "./anoo.module.css";
 
 const TextAnnotator = () => {
   const { curImg, curVersion, updateTextAnnotations } = useGetAnno();
@@ -29,7 +30,7 @@ const TextAnnotator = () => {
             const textAnnotation = curImg.textAnnotations;
             const value = textAnnotation ? textAnnotation.text : "";
             return (
-              <div key={anno.randomId}>
+              <div key={anno.randomId} className={Style.textLine}>
                 <label>Text: {anno.simpleId}</label>
                 <input
                   type="text"

@@ -16,8 +16,12 @@ const BabelCanvas = () => {
             <UploadImageForm />
             :
             <div className={Style.annotator}>
+                <div className={Style.imageAnno}>
                 <ImageAnnotator />
+                </div>
+                <div className={Style.textAnno}>
                 <TextAnnotator />
+                </div>
             </div>
             }
         </div>

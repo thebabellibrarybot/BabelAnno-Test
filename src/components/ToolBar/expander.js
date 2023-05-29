@@ -1,4 +1,5 @@
 import Style from "./toolBar.module.css";
+import SvgLoader from "../../functions/svgLoader";
 
 const Expander = ({ expanded, array, handleItem }) => {
     return (
@@ -8,7 +9,10 @@ const Expander = ({ expanded, array, handleItem }) => {
                 : 
                 <>
                     {array.map((item, i) => (
-                        <p key={i} onClick = {()=>item.handleItem()}>{item.item}</p>
+                        <>
+                            <p key={i} onClick = {()=>item.handleItem()}>{item.item}</p>
+                            <SvgLoader ability={item.svg} classNA={Style.icon}></SvgLoader>
+                        </>
                     ))}
                 </>
             }

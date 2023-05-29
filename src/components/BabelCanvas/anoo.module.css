@@ -3,4 +3,14 @@
 }
 .annotator {
     display: flex;
+    justify-content: space-evenly;
+}
+.imageAnno {
+    width: 50%;
+}
+.textAnno {
+    width: 50%;
+}
+.textLine {
+    margin: 5px;
 }

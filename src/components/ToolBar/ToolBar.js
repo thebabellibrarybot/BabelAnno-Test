@@ -6,8 +6,8 @@ const ToolBar = () => {
 
     return (
         <div>
-            <Expander expanded= {true} array={[{item: "New Version", handleItem: addNewVersion}, {item: "Text-lines", handleItem: "handle"}, {item:"Notepad", handleItem: "handle"}, {item: "Compare", handleItem: "handle"}, {item: "Fit to Screen", handleItem: "handle"}, {item: "Hide-text", handleItem: "handle"}, {item: "Hide-line-numbers", handleItem: "handle"}]}/>
-            <Expander expanded = {true} array={[{item: "About", handleItem: "handle"}, {item: "Contact", handleContact: "handle"}]}/>
+            <Expander expanded= {true} array={[{item: "New Version", handleItem: addNewVersion, svg: "newVersion"}, {item: "Text-lines", handleItem: "handle", svg: "textLine"}, {item:"Notepad", handleItem: "handle", svg: "notepad"}, {item: "Compare", handleItem: "handle", svg: "compare"}, {item: "Fit to Screen", handleItem: "handle", svg: "fitScreen"}, {item: "Hide-text", handleItem: "handle", svg: "hideText"}, {item: "Hide-line-numbers", handleItem: "handle", svg: "hideLineNums"}]}/>
+            <Expander expanded = {true} array={[{item: "About", handleItem: "handle", svg: "about"}, {item: "Contact", handleContact: "handle", svg: "contact"}]}/>
         </div>
     )
 };
