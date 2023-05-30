@@ -32,9 +32,7 @@ To run the Historic Document Annotation App locally, follow these steps:
 
 4. Versioning: The app supports versioning to track the progress and changes in annotations. Users can create new versions of annotations for a document and switch between versions to compare and analyze the differences.
 
-5. Save Annotations: The app automatically saves the annotations and associated text when changes are made. There is no explicit "Save" button; all modifications are persisted in real-time.
-
-6. Delete Annotations: To remove an annotation, click the "X" button displayed on the annotated bounding box. This action will delete the annotation from the current version.
+5. Export Annotations: Annotations can be exported in JSON files, XML, PAGE XML (required for [kraken ocr](https://kraken.re/main/index.html)), as well as COCO, and txt formats.
 
 ## Contributing
 
